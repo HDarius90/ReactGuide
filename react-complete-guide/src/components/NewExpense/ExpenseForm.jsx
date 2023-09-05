@@ -2,44 +2,37 @@ import "./ExpenseForm.css";
 import { useState } from "react";
 
 const ExpenseForm = () => {
-  /*   const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
-  const [enteredDate, setEnteredDate] = useState(""); */
+  const [enteredDate, setEnteredDate] = useState("");
 
-  const [userInput, setUserInput] = useState({
+  /*   const [userInput, setUserInput] = useState({
     enteredTitele: "",
     enteredAmount: "",
     enteredDate: "",
-  });
+  }); */
 
   const titleChangeHandler = (event) => {
-    setUserInput({
-      ...userInput,
-      enteredTitele: event.target.value,
-    });
+    setEnteredTitle(event.target.value);
+    /*     setUserInput((prevState) => {
+      return { ...prevState, enteredTitele: event.target.value };
+    }); */
   };
 
   const amountChangeHandler = (event) => {
-    setUserInput({
+    setEnteredAmount(event.target.value);
+    /*     setUserInput({
       ...userInput,
       enteredAmount: event.target.value,
-    });
+    }); */
   };
 
   const dateChangeHandler = (event) => {
-    setUserInput({
+    setEnteredDate(event.target.value);
+    /*     setUserInput({
       ...userInput,
       enteredDate: event.target.value,
-    });
-  };
-
-  const submitClickHandler = (event) => {
-    event.preventDefault();
-    const newExpense = {
-      ...userInput,
-      id: "e5",
-    };
-    console.log(newExpense);
+    }); */
   };
 
   return (
@@ -69,9 +62,7 @@ const ExpenseForm = () => {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button type="submit" onClick={submitClickHandler}>
-          Add Expense
-        </button>
+        <button type="submit">Add Expense</button>
       </div>
     </form>
   );
