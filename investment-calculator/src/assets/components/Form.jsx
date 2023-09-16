@@ -1,7 +1,7 @@
 import { useState } from "react";
 import InputField from "./InputField";
 
-export default function From() {
+export default function From({ updateTable }) {
   const [formData, setFormData] = useState({
     capital: "",
     yearlySavingAmount: "",
@@ -28,9 +28,16 @@ export default function From() {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(formData);
+    for (const key in formData) {
+      if (formData[key] === "") {
+        console.log("data is missing");
+        return;
+      }
+    }
+    updateTable(formData);
+    resetForm();
   };
-  
+
   return (
     <form className="form" onSubmit={formSubmitHandler}>
       <div className="input-group">
@@ -60,7 +67,7 @@ export default function From() {
           name="expectedIntrestPersent"
           label={{
             id: "expected-return",
-            text: "Investment Duration (years)",
+            text: "Expected Interest (%, per year)",
           }}
         />
         <InputField
@@ -73,12 +80,14 @@ export default function From() {
           }}
         />
       </div>
-      <div className="actions">
-        <button className="button buttonAlt" type="button" onClick={resetForm}>
+      <p className="actions">
+        <button className="buttonAlt" type="reset" onClick={resetForm}>
           Reset
         </button>
-        <button className="button">Submit</button>
-      </div>
+        <button className="button" type="submit">
+          Calculate
+        </button>
+      </p>
     </form>
   );
 }
