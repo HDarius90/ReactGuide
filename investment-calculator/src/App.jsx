@@ -15,10 +15,12 @@ function App() {
     const yearlyContribution = +userInput["yearlySavingAmount"]; // as mentioned: feel free to change the shape...
     const expectedReturn = +userInput["expectedIntrestPersent"] / 100;
     const duration = +userInput["investmentDurationInYears"];
+    let totalInterest = 0;
 
     // The below code calculates yearly results (total savings, interest etc)
     for (let i = 0; i < duration; i++) {
       const yearlyInterest = currentSavings * expectedReturn;
+      totalInterest += yearlyInterest;
       currentSavings += yearlyInterest + yearlyContribution;
       yearlyData.push({
         // feel free to change the shape of the data pushed to the array!
@@ -26,17 +28,18 @@ function App() {
         yearlyInterest: yearlyInterest,
         savingsEndOfYear: currentSavings,
         yearlyContribution: yearlyContribution,
+        totalInterest: totalInterest,
+        investedCapital: currentSavings - totalInterest,
       });
     }
 
-    console.log(yearlyData);
+    return yearlyData;
   };
 
-  const [inputData, setInputData] = useState("");
+  const [calculatedData, setCalculatedData] = useState("");
 
   const updateTable = (data) => {
-    setInputData(calculateHandler(data));
-    console.log(inputData);
+    setCalculatedData(calculateHandler(data));
   };
 
   return (
@@ -44,10 +47,12 @@ function App() {
       <Header logo={logo} />
       <Form updateTable={updateTable} />
 
-      {/* Todo: Show below table conditionally (only once result data is available) */}
+      {calculatedData ? (
+        <Table calculatedData={calculatedData} />
+      ) : (
+        <div style={{ textAlign: 'center' }}>No investment callculated yet.</div>
+      )}
       {/* Show fallback text if no data is available */}
-
-      <Table />
     </div>
   );
 }

@@ -1,11 +1,14 @@
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
+import style from './Table.module.css'
 
-export default function Table() {
+export default function Table({ calculatedData }) {
   return (
-    <table className="result">
+    <table className={style.result}>
       <TableHead />
-      <TableBody />
+      {calculatedData.map((lineOfData, index) => {
+        return <TableBody key={index} data={lineOfData}/>;
+      })}
     </table>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import InputField from "./InputField";
+import style from "./Form.module.css";
 
 export default function From({ updateTable }) {
   const [formData, setFormData] = useState({
@@ -35,12 +36,11 @@ export default function From({ updateTable }) {
       }
     }
     updateTable(formData);
-    resetForm();
   };
 
   return (
-    <form className="form" onSubmit={formSubmitHandler}>
-      <div className="input-group">
+    <form className={style.form} onSubmit={formSubmitHandler}>
+      <div className={style["input-group"]}>
         <InputField
           value={formData.capital}
           changeHandler={handleChange}
@@ -60,7 +60,7 @@ export default function From({ updateTable }) {
           }}
         />
       </div>
-      <div className="input-group">
+      <div className={style["input-group"]}>
         <InputField
           changeHandler={handleChange}
           value={formData.expectedIntrestPersent}
@@ -80,11 +80,11 @@ export default function From({ updateTable }) {
           }}
         />
       </div>
-      <p className="actions">
-        <button className="buttonAlt" type="reset" onClick={resetForm}>
+      <p className={style.actions}>
+        <button className={style.buttonAlt} type="reset" onClick={resetForm}>
           Reset
         </button>
-        <button className="button" type="submit">
+        <button className={style.button} type="submit">
           Calculate
         </button>
       </p>
