@@ -10,10 +10,15 @@ export default function UserForm({ addUser }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (age > 0) {
-      addUser(`${username} (${age} years old)`);
+    if (username.trim().length === 0 || age.trim().length === 0) {
+      return setErrorMessage("Please enter a valid age (>0).");
+    }
+    if (+age < 1) {
+      return;
     } else {
-      setErrorMessage("Please enter a valid age (>0).");
+      addUser(`${username} (${age} years old)`);
+      setUsername("");
+      setAge("");
     }
   };
 
@@ -38,7 +43,7 @@ export default function UserForm({ addUser }) {
           onChange={(e) => setAge(e.target.value)}
           value={age}
         />
-        <Button text="Add User" />
+        <Button type="submit">Add User</Button>
       </form>
       {errorMessage && (
         <ErrorModal msg={errorMessage} onDismiss={removeError} />

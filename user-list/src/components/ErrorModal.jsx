@@ -10,7 +10,7 @@ export default function ErrorModal({ msg, onDismiss }) {
         </div>
         <div className={style.content}>{msg}</div>
         <div className={style.actions}>
-          <Button clickHandler={onDismiss} text="Okay" />
+          <Button clickHandler={onDismiss}>Okay</Button>
         </div>
       </div>
     </div>
