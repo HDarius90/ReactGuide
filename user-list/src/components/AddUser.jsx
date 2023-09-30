@@ -1,15 +1,18 @@
 import style from "./AddUser.module.css";
 import Button from "./Button";
 import ErrorModal from "./ErrorModal";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function UserForm({ addUser }) {
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
+  const enteredName = useRef();
+  const enteredAge = useRef();
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
+    const username = enteredName.current.value;
+    const age = enteredAge.current.value;
     if (username.trim().length === 0 || age.trim().length === 0) {
       return setErrorMessage("Please enter a valid age (>0).");
     }
@@ -17,8 +20,8 @@ export default function UserForm({ addUser }) {
       return;
     } else {
       addUser(`${username} (${age} years old)`);
-      setUsername("");
-      setAge("");
+      enteredName.current.value = "";
+      enteredAge.current.value = "";
     }
   };
 
@@ -34,14 +37,14 @@ export default function UserForm({ addUser }) {
           type="text"
           id="username"
           onChange={(e) => setUsername(e.target.value)}
-          value={username}
+          ref={enteredName}
         />
         <label htmlFor="age">Age (Years)</label>
         <input
           type="number"
           id="age"
           onChange={(e) => setAge(e.target.value)}
-          value={age}
+          ref={enteredAge}
         />
         <Button type="submit">Add User</Button>
       </form>
