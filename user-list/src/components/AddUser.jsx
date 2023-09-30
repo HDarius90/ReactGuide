@@ -36,14 +36,12 @@ export default function UserForm({ addUser }) {
         <input
           type="text"
           id="username"
-          onChange={(e) => setUsername(e.target.value)}
           ref={enteredName}
         />
         <label htmlFor="age">Age (Years)</label>
         <input
           type="number"
           id="age"
-          onChange={(e) => setAge(e.target.value)}
           ref={enteredAge}
         />
         <Button type="submit">Add User</Button>
